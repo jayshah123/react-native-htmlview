@@ -59,4 +59,4 @@ function htmlToElement(rawHtml, opts, done) {
   parser.done()
 }
 
-module.exports = htmlToElement
+module.exports = htmlToElement;

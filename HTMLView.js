@@ -92,4 +92,4 @@ var baseStyles = StyleSheet.create({
   },
 })
 
-module.exports = HTMLView
+module.exports = HTMLView;
