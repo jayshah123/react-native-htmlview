@@ -41,24 +41,30 @@ function htmlToElement(rawHtml, opts, done) {
         if (node.name == 'a' && node.attribs && node.attribs.href) {
           linkPressHandler = () => opts.linkHandler(entities.decodeHTML(node.attribs.href))
         }
-        // NOTE: below code assumes that there will never be nested li or nested p tags
-        return (
-          <View key={index} onPress={linkPressHandler}>
-            {(() => {
-              if (node.name === 'li') {
-                return (<Text>{BULLET} {domToElement(node.children, node)}</Text>);
-              }
-              if(node.name === 'p') {
-                return (
-                  <Text>
-                    {domToElement(node.children, node)}
-                  </Text>
-                );
-              }
-              return domToElement(node.children, node);
-            })()}
-          </View>
-        )
+        if (node.name === 'li') {
+          return (<Text>{LINE_BREAK}{BULLET} {domToElement(node.children, node)}</Text>);
+        }
+        if(node.name === 'p' || node.name === 'ul' || node.name === 'b') {
+          return (
+            <Text>
+              {domToElement(node.children, node)}
+            </Text>
+          );
+        }
+        if(node.name === 'img' || node.name === 'video' || node.name === 'audio') {
+          return (
+            <View>
+              {domToElement(node.children, node)}
+            </View>
+          );
+        }
+        if(node.name === 'div') {
+          return (
+            <View>
+              {domToElement(node.children, node)}
+            </View>
+          );
+        }
       }
     })
   }
