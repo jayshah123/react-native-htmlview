@@ -41,16 +41,21 @@ function htmlToElement(rawHtml, opts, done) {
         if (node.name == 'a' && node.attribs && node.attribs.href) {
           linkPressHandler = () => opts.linkHandler(entities.decodeHTML(node.attribs.href))
         }
+        // text like tags that can be nested inside tags
         if (node.name === 'li') {
           return (<Text>{LINE_BREAK}{BULLET} {domToElement(node.children, node)}</Text>);
         }
-        if(node.name === 'p' || node.name === 'ul' || node.name === 'b') {
+        if(node.name === 'p' || node.name === 'ul' || node.name === 'b'
+          || node.name === 'i' || node.name === 'u' || node.name === 'h1'
+          || node.name === 'h2' || node.name === 'h3' || node.name === 'a'
+        ) {
           return (
             <Text>
               {domToElement(node.children, node)}
             </Text>
           );
         }
+        // tags/views that cannot be nested inside text
         if(node.name === 'img' || node.name === 'video' || node.name === 'audio') {
           return (
             <View>
