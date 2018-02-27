@@ -22,5 +22,8 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/jsdf/react-native-htmlview.git"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.1"
   }
 }
